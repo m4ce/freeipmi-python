@@ -83,6 +83,10 @@ class FreeIPMI(object):
                             v = re.sub("['\"]$", '', re.sub(
                                 "^['\"]", '', value))
 
+                            # normalize N/A value
+                            if v.lower() == 'n/a':
+                                v = None
+
                     sensor[header[index]] = v
                 sensors.append(sensor)
             else:
