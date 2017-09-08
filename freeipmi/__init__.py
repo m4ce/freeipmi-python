@@ -9,12 +9,11 @@ class IPMIError(Exception):
 
 class FreeIPMI(object):
     def __init__(self, sensors_cli_path=None):
-        """
-        Construct a new 'FreeIPMI' object
+        """Initialize an instance of the FreeIPMI class
 
-        :param sensors_cli_path: path to ipmi-sensors executable
-        :type sensors_cli_path: string
-        :return: nothing
+        Args:
+            sensors_cli_path (str): Path to the ipmi-sensors executable
+
         """
 
         if sensors_cli_path:
@@ -27,14 +26,19 @@ class FreeIPMI(object):
             self.sensors_cli_path = 'ipmi-sensors'
 
     def _execute(self, cmd):
-        """
-        Execute a IPMI command
+        """Execute an IPMI command
 
-        :param cmd: command to execute
-        :type cmd: string
-        :return: command output
-        :rtype: int
+        Args:
+            cmd (str): Command to run
+
+        Returns:
+            str: The output of the command executed
+
+        Raises:
+            IPMIError
+
         """
+
         proc = subprocess.Popen(
             cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         out, err = proc.communicate()
@@ -51,11 +55,11 @@ class FreeIPMI(object):
             return out
 
     def sensors(self):
-        """
-        Get all available IPMI sensors
+        """Get all available IPMI sensors
 
-        :return: IPMI sensors
-        :rtype: list
+        Returns:
+            list: IPMI sensors
+
         """
 
         header = None
