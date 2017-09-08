@@ -66,7 +66,7 @@ class FreeIPMI(object):
         sensors = []
 
         raw = self._execute(
-            cmd="{} -Q --sdr-cache-recreate".format(self.sensors_cli_path))
+            cmd="{} -Q --output-sensor-state --sdr-cache-recreate".format(self.sensors_cli_path))
         for row in [re.sub('\s+\|\s+', '|', line).split('|') for line in filter(None, raw.rstrip().split("\n"))]:
             if header:
                 sensor = {}
@@ -83,7 +83,7 @@ class FreeIPMI(object):
                             v = re.sub("['\"]$", '', re.sub(
                                 "^['\"]", '', value))
 
-                            # normalize N/A value
+                            # convert N/A to None
                             if v.lower() == 'n/a':
                                 v = None
 
