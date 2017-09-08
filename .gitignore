@@ -1,4 +1,6 @@
 dist
 MANIFEST
 *.pyc
-docs/build
+
+# Sphinx documentation
+docs/_build/
